@@ -3,7 +3,7 @@
     <ul class="tag-list">
       <li class="tag-item" ng-repeat="tag in tags" ng-class="getCssClass($index)">
         <span>{{tag}}</span>
-        <button type="button" ng-click="remove($index)">{{options.removeTagSymbol}}</button>
+        <button type="button" ng-click="remove($index)" ng-hide="readonly">{{options.removeTagSymbol}}</button>
       </li>
     </ul>
     <input type="text" class="tag-input"

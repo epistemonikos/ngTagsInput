@@ -52,6 +52,7 @@ tagsInput.directive('tagsInput', function($timeout, $document, tagsInputConfig) 
         require: 'ngModel',
         scope: {
             tags: '=ngModel',
+            readonly: '=',
             onTagAdded: '&',
             onTagRemoved: '&'
         },
@@ -75,7 +76,6 @@ tagsInput.directive('tagsInput', function($timeout, $document, tagsInputConfig) 
                 addOnBlur: [Boolean, true],
                 allowedTagsPattern: [RegExp, /^[a-zA-Z0-9\s]+$/],
                 enableEditingLastTag: [Boolean, false],
-		readonly: [Boolean, false],
                 minTags: [Number],
                 maxTags: [Number]
             });

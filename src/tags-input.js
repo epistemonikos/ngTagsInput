@@ -52,7 +52,7 @@ tagsInput.directive('tagsInput', function($timeout, $document, tagsInputConfig) 
         require: 'ngModel',
         scope: {
             tags: '=ngModel',
-            readonly: '=',
+            editable: '=',
             onTagAdded: '&',
             onTagRemoved: '&'
         },

@@ -4,7 +4,7 @@ module.exports = function(grunt) {
     'use strict';
 
     var packageFile = 'package.json',
-        bowerRepoDirectory = '../ngTagsInput-bower/',
+        bowerRepoDirectory = 'dist/',
         bowerFile = bowerRepoDirectory + 'bower.json';
 
     grunt.initConfig({

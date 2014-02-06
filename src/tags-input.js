@@ -64,6 +64,8 @@ tagsInput.directive('tagsInput', function($timeout, $document, tagsInputConfig) 
 
             tagsInputConfig.load('tagsInput', $scope, $attrs, {
                 customClass: [String],
+                customEditableClass: [String],
+                customUneditableClass: [String],
                 placeholder: [String, 'Add a tag'],
                 tabindex: [Number],
                 removeTagSymbol: [String, String.fromCharCode(215)],
@@ -142,6 +144,24 @@ tagsInput.directive('tagsInput', function($timeout, $document, tagsInputConfig) 
             $scope.getCssClass = function(index) {
                 var isLastTag = index === $scope.tags.length - 1;
                 return shouldRemoveLastTag && isLastTag ? 'selected' : '';
+            };
+
+            $scope.currentClasses = function(editable) {
+                var classes = {};
+
+                if ( $scope.options.customClass ) {
+                    classes[$scope.options.customClass] = true;
+                }
+
+                if ( $scope.options.customEditableClass ) {
+                    classes[$scope.options.customEditableClass] = editable;
+                }
+
+                if ( $scope.options.customUneditableClass ) {
+                    classes[$scope.options.customUneditableClass] = !editable;
+                }
+
+                return classes;
             };
 
             $scope.$watch(function() { return $scope.newTag.length > 0; }, function() {

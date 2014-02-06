@@ -294,8 +294,8 @@ module.exports = function(grunt) {
         'replace:changelog',
         'shell:git',
         'copy:bower',
-        'update-bower-version',
-        'shell:git_bower'
+        // 'update-bower-version',
+        // 'shell:git_bower'
     ]);
 
     grunt.registerTask('default', ['pack']);

@@ -7,12 +7,12 @@
       </li>
     </ul>
     <input type="text" class="tag-input"
-           placeholder="{{options.placeholder}}"
+           placeholder="{{inputPlaceholder()}}"
+	   ng-disabled="!editable"
            maxlength="{{options.maxLength}}"
            tabindex="{{options.tabindex}}"
            ng-model="newTag"
            ng-change="newTagChange()"
-	   ng-show="editable"
            ti-autosize>
   </div>
 </div>

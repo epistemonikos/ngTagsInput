@@ -67,6 +67,7 @@ tagsInput.directive('tagsInput', function($timeout, $document, tagsInputConfig) 
                 customEditableClass: [String],
                 customUneditableClass: [String],
                 placeholder: [String, 'Add a tag'],
+                placeholderWhenEmptyNonEditable: [String, 'No tags here.'],
                 tabindex: [Number],
                 removeTagSymbol: [String, String.fromCharCode(215)],
                 replaceSpacesWithDashes: [Boolean, true],
@@ -89,6 +90,19 @@ tagsInput.directive('tagsInput', function($timeout, $document, tagsInputConfig) 
 
             $scope.newTag = '';
             $scope.tags = $scope.tags || [];
+            
+            $scope.inputPlaceholder = function() {
+		
+                if ( $scope.editable === undefined ) {
+                    return $scope.options.placeholder;
+                } else if ( $scope.editable ) {
+                    return $scope.options.placeholder;
+                } else if ( $scope.tags.length > 0 ) {
+                    return '';
+                } else if ( $scope.tags.length === 0 ) {
+                    return $scope.options.placeholderWhenEmptyNonEditable;
+                }
+            };
 
             $scope.tryAdd = function() {
                 var changed = false;

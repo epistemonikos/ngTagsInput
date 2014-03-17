@@ -1,11 +1,11 @@
 /*!
- * ngTagsInput v1.1.1
+ * ngTagsInput v1.1.2
  * http://mbenford.github.io/ngTagsInput
  *
  * Copyright (c) 2013-2014 Michael Benford
  * License: MIT
  *
- * Generated at 2014-02-06 11:43:18 -0300
+ * Generated at 2014-03-17 12:58:27 -0400
  */
 (function() {
 'use strict';
@@ -90,6 +90,7 @@ tagsInput.directive('tagsInput', ["$timeout","$document","tagsInputConfig", func
                 customEditableClass: [String],
                 customUneditableClass: [String],
                 placeholder: [String, 'Add a tag'],
+                placeholderWhenEmptyNonEditable: [String, 'No tags here.'],
                 tabindex: [Number],
                 removeTagSymbol: [String, String.fromCharCode(215)],
                 replaceSpacesWithDashes: [Boolean, true],
@@ -112,6 +113,19 @@ tagsInput.directive('tagsInput', ["$timeout","$document","tagsInputConfig", func
 
             $scope.newTag = '';
             $scope.tags = $scope.tags || [];
+            
+            $scope.inputPlaceholder = function() {
+		
+                if ( $scope.editable === undefined ) {
+                    return $scope.options.placeholder;
+                } else if ( $scope.editable ) {
+                    return $scope.options.placeholder;
+                } else if ( $scope.tags.length > 0 ) {
+                    return '';
+                } else if ( $scope.tags.length === 0 ) {
+                    return $scope.options.placeholderWhenEmptyNonEditable;
+                }
+            };
 
             $scope.tryAdd = function() {
                 var changed = false;
@@ -632,7 +646,7 @@ tagsInput.provider('tagsInputConfig', function() {
 /* HTML templates */
 tagsInput.run(["$templateCache", function($templateCache) {
     $templateCache.put('ngTagsInput/tags-input.html',
-    "<div class=\"ngTagsInput\" ng-class=\"currentClasses(editable)\" tabindex=\"-1\" ti-transclude-append=\"\"><div class=\"tags\" ng-class=\"{focused: hasFocus}\"><ul class=\"tag-list\"><li class=\"tag-item\" ng-repeat=\"tag in tags\" ng-class=\"getCssClass($index)\"><span>{{tag}}</span> <button type=\"button\" ng-click=\"remove($index)\" ng-show=\"editable\">{{options.removeTagSymbol}}</button></li></ul><input class=\"tag-input\" placeholder=\"{{options.placeholder}}\" maxlength=\"{{options.maxLength}}\" tabindex=\"{{options.tabindex}}\" ng-model=\"newTag\" ng-change=\"newTagChange()\" ng-show=\"editable\" ti-autosize=\"\"></div></div>"
+    "<div class=\"ngTagsInput\" ng-class=\"currentClasses(editable)\" tabindex=\"-1\" ti-transclude-append=\"\"><div class=\"tags\" ng-class=\"{focused: hasFocus}\"><ul class=\"tag-list\"><li class=\"tag-item\" ng-repeat=\"tag in tags\" ng-class=\"getCssClass($index)\"><span>{{tag}}</span> <button type=\"button\" ng-click=\"remove($index)\" ng-show=\"editable\">{{options.removeTagSymbol}}</button></li></ul><input class=\"tag-input\" placeholder=\"{{inputPlaceholder()}}\" ng-disabled=\"!editable\" maxlength=\"{{options.maxLength}}\" tabindex=\"{{options.tabindex}}\" ng-model=\"newTag\" ng-change=\"newTagChange()\" ti-autosize=\"\"></div></div>"
   );
 
   $templateCache.put('ngTagsInput/auto-complete.html',

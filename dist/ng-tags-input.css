@@ -25,7 +25,6 @@
     word-wrap: break-word;
     font-size: 14px;
     cursor: text;
-    min-height: 25px;
 }
 
 .ngTagsInput .tags.focused {

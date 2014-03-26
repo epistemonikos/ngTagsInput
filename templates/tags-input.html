@@ -1,18 +1,20 @@
-<div class="ngTagsInput" ng-class="currentClasses(editable)" tabindex="-1" ti-transclude-append>
+<div class="host" ng-class="currentClasses(editable)" tabindex="-1" ti-transclude-append>
   <div class="tags" ng-class="{focused: hasFocus}">
     <ul class="tag-list">
-      <li class="tag-item" ng-repeat="tag in tags" ng-class="getCssClass($index)">
-        <span>{{tag}}</span>
-        <button type="button" ng-click="remove($index)" ng-show="editable">{{options.removeTagSymbol}}</button>
+      <li class="tag-item" ng-repeat="tag in tagList.items track by track(tag)" ng-class="{ selected: tag == tagList.selected }">
+        <span>{{getDisplayText(tag)}}</span>
+        <a class="remove-button" ng-click="tagList.remove($index)" ng-show="editable">{{options.removeTagSymbol}}</a>
       </li>
     </ul>
-    <input type="text" class="tag-input"
+    <input type="text"
+           class="input"
            placeholder="{{inputPlaceholder()}}"
 	   ng-disabled="!editable"
-           maxlength="{{options.maxLength}}"
            tabindex="{{options.tabindex}}"
-           ng-model="newTag"
+           ng-model="newTag.text"
            ng-change="newTagChange()"
+           ng-trim="false"
+           ng-class="{'invalid-tag': newTag.invalid}"
            ti-autosize>
   </div>
 </div>

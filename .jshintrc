@@ -21,6 +21,7 @@
         "document": true,
         "$": true,
         "beforeEach": true,
+        "afterEach": true,
         "describe": true,
         "it": true,
         "expect": true,
@@ -28,6 +29,11 @@
         "spyOn": true,
         "require": true,
         "tagsInput": true,
-        "KEYS": true
+        "SimplePubSub": true,
+        "makeObjectArray": true,
+        "findInObjectArray": true,
+        "KEYS": true,
+        "generateArray": true,
+        "customMatchers": true
     }
 }

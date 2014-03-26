@@ -23,15 +23,9 @@ tagsInput.directive('autoComplete', function($document, $timeout, $sce, tagsInpu
         var self = {}, debouncedLoadId, getDifference, lastPromise;
 
         getDifference = function(array1, array2) {
-            var result = [];
-
-            array1.forEach(function(item) {
-                if (array2.indexOf(item) === -1) {
-                    result.push(item);
-                }
+            return array1.filter(function(item) {
+                return !findInObjectArray(array2, item, options.tagsInput.displayProperty);
             });
-
-            return result;
         };
 
         self.reset = function() {
@@ -67,7 +61,8 @@ tagsInput.directive('autoComplete', function($document, $timeout, $sce, tagsInpu
                         return;
                     }
 
-                    self.items = getDifference(items.data || items, tags);
+                    items = makeObjectArray(items.data || items, options.tagsInput.displayProperty);
+                    self.items = getDifference(items, tags);
                     if (self.items.length > 0) {
                         self.show();
                     }
@@ -112,7 +107,7 @@ tagsInput.directive('autoComplete', function($document, $timeout, $sce, tagsInpu
         templateUrl: 'ngTagsInput/auto-complete.html',
         link: function(scope, element, attrs, tagsInputCtrl) {
             var hotkeys = [KEYS.enter, KEYS.tab, KEYS.escape, KEYS.up, KEYS.down],
-                suggestionList, tagsInput, markdown;
+                suggestionList, tagsInput, options, getItemText, markdown;
 
             tagsInputConfig.load('autoComplete', scope, attrs, {
                 debounceDelay: [Number, 100],
@@ -121,10 +116,18 @@ tagsInput.directive('autoComplete', function($document, $timeout, $sce, tagsInpu
                 maxResultsToShow: [Number, 10]
             });
 
-            tagsInput = tagsInputCtrl.registerAutocomplete();
-            suggestionList = new SuggestionList(scope.source, scope.options);
+            options = scope.options;
 
-            if (scope.options.highlightMatchedText) {
+            tagsInput = tagsInputCtrl.registerAutocomplete();
+            options.tagsInput = tagsInput.getOptions();
+
+            suggestionList = new SuggestionList(scope.source, options);
+
+            getItemText = function(item) {
+                return item[options.tagsInput.displayProperty];
+            };
+
+            if (options.highlightMatchedText) {
                 markdown = function(item, text) {
                     var expression = new RegExp(text, 'gi');
                     return item.replace(expression, '**$&**');
@@ -142,7 +145,7 @@ tagsInput.directive('autoComplete', function($document, $timeout, $sce, tagsInpu
                 var added = false;
 
                 if (suggestionList.selected) {
-                    tagsInput.tryAddTag(suggestionList.selected);
+                    tagsInput.addTag(suggestionList.selected);
                     suggestionList.reset();
                     tagsInput.focusInput();
 
@@ -152,13 +155,21 @@ tagsInput.directive('autoComplete', function($document, $timeout, $sce, tagsInpu
             };
 
             scope.highlight = function(item) {
-                item = markdown(item, suggestionList.query);
-                item = encodeHTML(item);
-                item = item.replace(/\*\*(.+?)\*\*/g, '<em>$1</em>');
-                return $sce.trustAsHtml(item);
+                var text = getItemText(item);
+                text = markdown(text, suggestionList.query);
+                text = encodeHTML(text);
+                text = text.replace(/\*\*(.+?)\*\*/g, '<em>$1</em>');
+                return $sce.trustAsHtml(text);
+            };
+
+            scope.track = function(item) {
+                return getItemText(item);
             };
 
             tagsInput
+                .on('tag-added invalid-tag', function() {
+                    suggestionList.reset();
+                })
                 .on('input-change', function(value) {
                     if (value) {
                         suggestionList.load(value, tagsInput.getTags());

@@ -1,6 +1,10 @@
-# ngTagsInput [![Build Status](https://travis-ci.org/mbenford/ngTagsInput.png?branch=master)](https://travis-ci.org/mbenford/ngTagsInput) [![Coverage Status](https://coveralls.io/repos/mbenford/ngTagsInput/badge.png?branch=master)](https://coveralls.io/r/mbenford/ngTagsInput?branch=master) [![devDependency Status](https://david-dm.org/mbenford/ngTagsInput/dev-status.png)](https://david-dm.org/mbenford/ngTagsInput#info=devDependencies)
+# ngTagsInput
 
-Tags input directive for AngularJS. Check out the [ngTagsInput website](http://mbenford.github.io/ngTagsInput) for more information.
+Tags input directive for AngularJS, forked for Epistemonikos. We use it in [ekTags](https://github.com/epistemonikos/ekTags). Check out the [ngTagsInput website](http://mbenford.github.io/ngTagsInput) for the original (pre-fork) repository.
+
+## Warning
+
+This fork is based on an old version of [ngTagsInput](https://github.com/mbenford/ngTagsInput). The changelog of the original project since the moment of the fork has been important, so be careful if you want to pull changes.
 
 ## Requirements
 

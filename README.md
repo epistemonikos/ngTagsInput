@@ -1,6 +1,6 @@
 # ngTagsInput
 
-Tags input directive for AngularJS, forked for Epistemonikos. We use it in [ekTags](https://github.com/epistemonikos/ekTags). Check out the [ngTagsInput website](http://mbenford.github.io/ngTagsInput) for the original (pre-fork) repository.
+Tags input directive for AngularJS, forked for Epistemonikos. We use it in [ekTags](https://github.com/epistemonikos/ekTags). To see the original project's repository, check out [ngTagsInput](http://github.com/mbenford/ngTagsInput).
 
 ## Warning
 

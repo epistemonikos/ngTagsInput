@@ -4,7 +4,7 @@ Tags input directive for AngularJS, forked for Epistemonikos. We use it in [ekTa
 
 ## Warning
 
-This fork is based on an old version of [ngTagsInput](https://github.com/mbenford/ngTagsInput). The changelog of the original project since the moment of the fork has been important, so be careful if you want to pull changes.
+This fork is based on an **old** version of [ngTagsInput](https://github.com/mbenford/ngTagsInput). The changes of the original project from the time of the fork have been important, so **be careful** if you want to pull those changes.
 
 ## Requirements
 
